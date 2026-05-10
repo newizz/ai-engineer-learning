@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎓 AI Mastery Dashboard — Phase 1</title>
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
 <style>
 :root {
   --bg-base: #0a0e1a;
@@ -914,16 +914,16 @@ body {
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  A[ปัญหาธุรกิจ] --> B{มีข้อมูลพอไหม?}
-  B -- No --> C[Data Collection<br/>หรือเริ่มเก็บก่อน]
-  B -- Yes --> D{แก้ด้วย Rule ได้ไหม?}
-  D -- Yes --> E[Rule-Based<br/>ส่งของก่อน]
-  D -- No --> F{Pattern ชัด + มี Label?}
-  F -- Yes --> G[Classical ML<br/>Random Forest/XGBoost]
-  F -- No --> H{ต้องเข้าใจภาษาคน?}
-  H -- Yes --> I[LLM + RAG]
-  H -- No --> J[Anomaly Detection<br/>Unsupervised]
-  E --> K[Deploy → Monitor → Iterate]
+  A["ปัญหาธุรกิจ"] --> B{"มีข้อมูลพอไหม?"}
+  B -- No --> C["Data Collection<br/>หรือเริ่มเก็บก่อน"]
+  B -- Yes --> D{"แก้ด้วย Rule ได้ไหม?"}
+  D -- Yes --> E["Rule-Based<br/>ส่งของก่อน"]
+  D -- No --> F{"Pattern ชัด มี Label?"}
+  F -- Yes --> G["Classical ML<br/>Random Forest, XGBoost"]
+  F -- No --> H{"ต้องเข้าใจภาษาคน?"}
+  H -- Yes --> I["LLM + RAG"]
+  H -- No --> J["Anomaly Detection<br/>Unsupervised"]
+  E --> K["Deploy then Monitor then Iterate"]
   G --> K
   I --> K
   J --> K
@@ -1098,18 +1098,18 @@ print(msg.content[0].text)</code></pre>
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart LR
-  U[User Input] --> V[Validation/<br/>Sanitize]
-  V --> R{Cache Hit?}
-  R -- Yes --> CC[Return Cached]
-  R -- No --> RT[Router:<br/>เลือก model tier]
-  RT --> RL[Rate Limiter]
-  RL --> API[LLM API]
-  API -- Success --> P[Parse + Validate<br/>Output]
-  API -- Fail --> FB[Fallback Model<br/>หรือ Default Response]
-  P --> CACHE[Save to Cache]
-  CACHE --> OUT[Stream to User]
+  U["User Input"] --> V["Validation<br/>Sanitize"]
+  V --> R{"Cache Hit?"}
+  R -- Yes --> CC["Return Cached"]
+  R -- No --> RT["Router<br/>เลือก model tier"]
+  RT --> RL["Rate Limiter"]
+  RL --> API["LLM API"]
+  API -- Success --> P["Parse and Validate<br/>Output"]
+  API -- Fail --> FB["Fallback Model<br/>หรือ Default Response"]
+  P --> CACHE["Save to Cache"]
+  CACHE --> OUT["Stream to User"]
   FB --> OUT
-  P -.-> LOG[Log: tokens,<br/>latency, cost]
+  P -.-> LOG["Log<br/>tokens, latency, cost"]
   style U fill:#4f9eff,color:#fff
   style OUT fill:#3ecf8e,color:#fff
   style LOG fill:#a78bfa,color:#fff
@@ -1264,16 +1264,16 @@ USER: {sensor_reading_here}</code></pre>
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  A[Prompt v1<br/>draft] --> B[Eval Set<br/>30-50 cases]
-  B --> C{Accuracy<br/>OK?}
-  C -- No --> D[Analyze Failures]
-  D --> E[Add examples /<br/>guardrails]
+  A["Prompt v1<br/>draft"] --> B["Eval Set<br/>30-50 cases"]
+  B --> C{"Accuracy<br/>OK?"}
+  C -- No --> D["Analyze Failures"]
+  D --> E["Add examples<br/>or guardrails"]
   E --> A
-  C -- Yes --> F[A/B Test<br/>vs Production]
-  F --> G{Better?}
-  G -- Yes --> H[Promote to Prod<br/>+ tag version]
+  C -- Yes --> F["A/B Test<br/>vs Production"]
+  F --> G{"Better?"}
+  G -- Yes --> H["Promote to Prod<br/>and tag version"]
   G -- No --> D
-  H --> I[Monitor:<br/>format errors,<br/>refusal rate]
+  H --> I["Monitor<br/>format errors,<br/>refusal rate"]
   I -.->|drift detected| A
   style H fill:#3ecf8e,color:#fff
   style A fill:#4f9eff,color:#fff
@@ -1487,23 +1487,23 @@ Output: {"fault_type":"bearing_wear","severity":"high","confidence":0.85,...}
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  Q[User Query] --> ROUTE[Query Router]
-  ROUTE --> RT[Retrieve top-20<br/>from Vector DB]
-  RT --> RR[Re-rank →<br/>top-3]
-  ROUTE --> TS[Tool Selector<br/>top-5 tools]
-  ROUTE --> HM[History Manager]
-  HM --> SUM[Summarize old turns]
-  SUM --> RECENT[+ Keep last 2 raw]
-  RR --> ASM[Context Assembler]
+  Q["User Query"] --> ROUTE["Query Router"]
+  ROUTE --> RT["Retrieve top-20<br/>from Vector DB"]
+  RT --> RR["Re-rank<br/>top-3"]
+  ROUTE --> TS["Tool Selector<br/>top-5 tools"]
+  ROUTE --> HM["History Manager"]
+  HM --> SUM["Summarize old turns"]
+  SUM --> RECENT["Keep last 2 raw"]
+  RR --> ASM["Context Assembler"]
   TS --> ASM
   RECENT --> ASM
-  SP[System Prompt] --> ASM
-  FS[Few-Shot Examples] --> ASM
-  ASM --> TC[Token Counter<br/>+ Budget Check]
-  TC -- OK --> LLM[LLM API]
-  TC -- Over --> COMP[Compress<br/>or Truncate]
+  SP["System Prompt"] --> ASM
+  FS["Few-Shot Examples"] --> ASM
+  ASM --> TC["Token Counter<br/>and Budget Check"]
+  TC -- OK --> LLM["LLM API"]
+  TC -- Over --> COMP["Compress<br/>or Truncate"]
   COMP --> ASM
-  LLM --> OUT[Response]
+  LLM --> OUT["Response"]
   style ASM fill:#a78bfa,color:#fff
   style TC fill:#f0b740,color:#fff
   style LLM fill:#3ecf8e,color:#fff
@@ -1712,25 +1712,25 @@ def answer(question: str):
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  subgraph Indexing[Phase A: Indexing - offline]
-    D[Documents] --> CL[Cleaner]
-    CL --> CH[Chunker<br/>400-800 tok]
-    CH --> EM1[Embedding Model]
-    EM1 --> VDB[(Vector DB<br/>+ Metadata)]
-    CH --> KW[Keyword Index<br/>BM25]
+  subgraph Indexing ["Phase A: Indexing offline"]
+    D["Documents"] --> CL["Cleaner"]
+    CL --> CH["Chunker<br/>400-800 tok"]
+    CH --> EM1["Embedding Model"]
+    EM1 --> VDB[("Vector DB<br/>and Metadata")]
+    CH --> KW["Keyword Index<br/>BM25"]
   end
-  subgraph Query[Phase B: Query - online]
-    Q[User Question] --> QR[Query Rewriter<br/>HyDE]
-    QR --> EM2[Embed Query]
-    EM2 --> VS[Vector Search<br/>top-20]
-    QR --> KS[Keyword Search<br/>BM25 top-20]
-    VS --> RRF[RRF Fusion]
+  subgraph Query ["Phase B: Query online"]
+    Q["User Question"] --> QR["Query Rewriter<br/>HyDE"]
+    QR --> EM2["Embed Query"]
+    EM2 --> VS["Vector Search<br/>top-20"]
+    QR --> KS["Keyword Search<br/>BM25 top-20"]
+    VS --> RRF["RRF Fusion"]
     KS --> RRF
-    RRF --> RR[Cross-Encoder<br/>Re-rank]
-    RR --> CTX[Context Assembly<br/>top-3]
-    CTX --> LLM[LLM with citations]
-    LLM --> VAL[Citation Validator]
-    VAL --> OUT[Answer + Sources]
+    RRF --> RR["Cross-Encoder<br/>Re-rank"]
+    RR --> CTX["Context Assembly<br/>top-3"]
+    CTX --> LLM["LLM with citations"]
+    LLM --> VAL["Citation Validator"]
+    VAL --> OUT["Answer and Sources"]
   end
   VDB -.-> VS
   KW -.-> KS
@@ -1962,21 +1962,21 @@ LIMIT 20;</code></pre>
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  Q[Query] --> CACHE{Semantic<br/>Cache Hit?}
-  CACHE -- Yes --> RET[Return cached]
-  CACHE -- No --> EMB[Embed Query]
-  EMB --> FILTER[Metadata Pre-filter<br/>equipment_type, plant]
-  FILTER --> HNSW[HNSW Index<br/>top-K candidates]
-  HNSW --> POST[Post-filter +<br/>re-rank]
-  POST --> RES[Top-3 Results]
-  RES --> SAVE[Save to Cache]
-  SAVE --> OUT[Return to RAG]
+  Q["Query"] --> CACHE{"Semantic<br/>Cache Hit?"}
+  CACHE -- Yes --> RET["Return cached"]
+  CACHE -- No --> EMB["Embed Query"]
+  EMB --> FILTER["Metadata Pre-filter<br/>equipment_type, plant"]
+  FILTER --> HNSW["HNSW Index<br/>top-K candidates"]
+  HNSW --> POST["Post-filter and<br/>re-rank"]
+  POST --> RES["Top-3 Results"]
+  RES --> SAVE["Save to Cache"]
+  SAVE --> OUT["Return to RAG"]
 
-  subgraph Storage[Vector DB Internals]
+  subgraph Storage ["Vector DB Internals"]
     HNSW
-    M1[M=16<br/>connections]
-    M2[ef_search=64]
-    META[Metadata<br/>B-tree Index]
+    M1["M parameter 16<br/>connections"]
+    M2["ef_search 64"]
+    META["Metadata<br/>B-tree Index"]
   end
   HNSW -.- M1
   HNSW -.- M2
@@ -2237,20 +2237,20 @@ Web UI → API Gateway → RAG Pipeline → LLM
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  D[Discovery<br/>กับ stakeholder] --> SD[Spec Draft v0]
-  SD --> REV{Architecture<br/>Review}
+  D["Discovery<br/>กับ stakeholder"] --> SD["Spec Draft v0"]
+  SD --> REV{"Architecture<br/>Review"}
   REV -- Iterate --> SD
-  REV -- Approve --> SF[Spec v1.0<br/>Frozen]
-  SF --> IMPL[Implementation]
-  IMPL --> EVAL{Eval Pass<br/>Threshold?}
+  REV -- Approve --> SF["Spec v1.0<br/>Frozen"]
+  SF --> IMPL["Implementation"]
+  IMPL --> EVAL{"Eval Pass<br/>Threshold?"}
   EVAL -- No --> IMPL
-  EVAL -- Yes --> CAN[Canary 5%]
-  CAN --> MON{Monitor<br/>SLO OK?}
-  MON -- No --> RB[Rollback]
-  MON -- Yes --> R25[25% Rollout]
-  R25 --> R100[100% Production]
-  R100 --> WATCH[Monitor + Alerts]
-  WATCH -.drift detected.-> SD
+  EVAL -- Yes --> CAN["Canary 5 percent"]
+  CAN --> MON{"Monitor<br/>SLO OK?"}
+  MON -- No --> RB["Rollback"]
+  MON -- Yes --> R25["25 percent Rollout"]
+  R25 --> R100["100 percent Production"]
+  R100 --> WATCH["Monitor and Alerts"]
+  WATCH -.->|drift detected| SD
   RB --> IMPL
   style SF fill:#a78bfa,color:#fff
   style R100 fill:#3ecf8e,color:#fff
@@ -2481,24 +2481,24 @@ agent = Agent(
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  U[User Task] --> ROUTE{Workflow or<br/>Agent?}
-  ROUTE -- Workflow --> WF[LangGraph Workflow]
-  ROUTE -- Agent --> AG[Agent Controller]
-  AG --> CHECK{Iter &lt; 10?<br/>Cost &lt; $0.50?<br/>Time &lt; 30s?}
-  CHECK -- No --> FB[Fallback / Escalate]
-  CHECK -- Yes --> THINK[LLM: Think]
-  THINK --> DONE{Final Answer?}
-  DONE -- Yes --> OUT[Return Answer]
-  DONE -- No --> SEL[Tool Selector<br/>top-5 from registry]
-  SEL --> VAL[Validate Schema]
-  VAL --> SAFE{Side Effect?}
-  SAFE -- Yes + Hi-risk --> APPR[Human Approval]
-  SAFE -- No / Approved --> EXEC[Execute Tool]
-  EXEC --> TRUNC[Truncate Result &lt;1k tok]
+  U["User Task"] --> ROUTE{"Workflow or<br/>Agent?"}
+  ROUTE -- Workflow --> WF["LangGraph Workflow"]
+  ROUTE -- Agent --> AG["Agent Controller"]
+  AG --> CHECK{"Iter under 10?<br/>Cost under 0.50 USD?<br/>Time under 30s?"}
+  CHECK -- No --> FB["Fallback or Escalate"]
+  CHECK -- Yes --> THINK["LLM Think"]
+  THINK --> DONE{"Final Answer?"}
+  DONE -- Yes --> OUT["Return Answer"]
+  DONE -- No --> SEL["Tool Selector<br/>top-5 from registry"]
+  SEL --> VAL["Validate Schema"]
+  VAL --> SAFE{"Side Effect?"}
+  SAFE -->|Yes high risk| APPR["Human Approval"]
+  SAFE -->|No or Approved| EXEC["Execute Tool"]
+  EXEC --> TRUNC["Truncate Result under 1k tok"]
   TRUNC --> AG
   WF --> OUT
   APPR -- Reject --> FB
-  AG -.-> LOG[(Observability:<br/>LangFuse/Langsmith)]
+  AG -.-> LOG[("Observability<br/>LangFuse, Langsmith")]
   EXEC -.-> LOG
   style CHECK fill:#f0b740,color:#fff
   style SAFE fill:#f87171,color:#fff
@@ -2734,23 +2734,23 @@ assert all(r.passed for r in results), "Eval failed!"</code></pre>
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  subgraph DEV[Development Loop]
-    PR[Pull Request] --> L1[Layer 1: CI<br/>50 cases, ~60s]
-    L1 -- Pass --> L2[Layer 2: Pre-deploy<br/>200 cases, ~10min<br/>Ragas full]
-    L1 -- Fail --> BLOCK[Block PR]
-    L2 -- Pass --> CAN[Canary Deploy]
-    L2 -- Fail --> FIX[Fix and retry]
+  subgraph DEV ["Development Loop"]
+    PR["Pull Request"] --> L1["Layer 1 CI<br/>50 cases, ~60s"]
+    L1 -- Pass --> L2["Layer 2 Pre-deploy<br/>200 cases, ~10min<br/>Ragas full"]
+    L1 -- Fail --> BLOCK["Block PR"]
+    L2 -- Pass --> CAN["Canary Deploy"]
+    L2 -- Fail --> FIX["Fix and retry"]
   end
-  subgraph PROD[Production Loop]
-    CAN --> SAMPLE[Sample 1-5%<br/>traffic]
-    SAMPLE --> L4[Layer 4:<br/>Auto continuous<br/>LLM-as-judge]
-    SAMPLE --> UI[User feedback<br/>👍/👎]
-    L4 --> DASH[Eval Dashboard]
+  subgraph PROD ["Production Loop"]
+    CAN --> SAMPLE["Sample 1-5 percent<br/>traffic"]
+    SAMPLE --> L4["Layer 4<br/>Auto continuous<br/>LLM-as-judge"]
+    SAMPLE --> UI["User feedback<br/>thumbs up or down"]
+    L4 --> DASH["Eval Dashboard"]
     UI --> DASH
-    DASH --> DRIFT{Drift<br/>Detected?}
-    DRIFT -- Yes --> ALERT[Alert Engineer]
-    ALERT --> L3[Layer 3: SME Review<br/>20 cases/week]
-    L3 --> ADD[Add to Golden Set]
+    DASH --> DRIFT{"Drift<br/>Detected?"}
+    DRIFT -- Yes --> ALERT["Alert Engineer"]
+    ALERT --> L3["Layer 3 SME Review<br/>20 cases per week"]
+    L3 --> ADD["Add to Golden Set"]
     ADD -.-> L1
   end
   style L1 fill:#4f9eff,color:#fff
@@ -3016,27 +3016,27 @@ async def diagnose(req: DiagnoseRequest):
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  U[User] -- SSE stream --> GW[API Gateway<br/>+ JWT + RBAC]
-  GW --> RL[Rate Limiter<br/>per-user/org]
-  RL --> SAFE[Input Sanitize<br/>+ Prompt Firewall]
-  SAFE --> CACHE{3-Layer<br/>Cache}
-  CACHE -- Hit --> STREAM[Stream Cached]
-  CACHE -- Miss --> ROUTE[Model Router<br/>Haiku/Sonnet/Opus]
-  ROUTE --> RAG[RAG Pipeline]
-  RAG --> LLM[LLM Provider<br/>Multi-provider]
-  LLM -- OK --> VAL[Output Validator<br/>+ Citation Check]
-  LLM -- Fail --> FB[Fallback:<br/>2nd provider /<br/>Rule-based]
-  VAL --> SAVE[Save to Cache]
+  U["User"] -->|SSE stream| GW["API Gateway<br/>JWT and RBAC"]
+  GW --> RL["Rate Limiter<br/>per user or org"]
+  RL --> SAFE["Input Sanitize<br/>and Prompt Firewall"]
+  SAFE --> CACHE{"3-Layer<br/>Cache"}
+  CACHE -- Hit --> STREAM["Stream Cached"]
+  CACHE -- Miss --> ROUTE["Model Router<br/>Haiku, Sonnet, Opus"]
+  ROUTE --> RAG["RAG Pipeline"]
+  RAG --> LLM["LLM Provider<br/>Multi-provider"]
+  LLM -- OK --> VAL["Output Validator<br/>and Citation Check"]
+  LLM -- Fail --> FB["Fallback<br/>2nd provider or<br/>Rule-based"]
+  VAL --> SAVE["Save to Cache"]
   SAVE --> STREAM
   FB --> STREAM
   STREAM --> U
-  GW -.-> OBS[(LangFuse +<br/>OTel + Datadog)]
+  GW -.-> OBS[("LangFuse,<br/>OTel, Datadog")]
   RAG -.-> OBS
   LLM -.-> OBS
   VAL -.-> OBS
-  OBS --> ALERT[Alerts:<br/>PagerDuty]
-  OBS --> EVAL[Continuous Eval<br/>1-5% sample]
-  EVAL --> DASH[Quality Dashboard]
+  OBS --> ALERT["Alerts<br/>PagerDuty"]
+  OBS --> EVAL["Continuous Eval<br/>1-5 percent sample"]
+  EVAL --> DASH["Quality Dashboard"]
   style CACHE fill:#f0b740,color:#fff
   style ROUTE fill:#a78bfa,color:#fff
   style FB fill:#f87171,color:#fff
@@ -3263,23 +3263,23 @@ flowchart TD
       <div class="diagram-wrap">
 <div class="mermaid">
 flowchart TD
-  J[Junior AI Engineer<br/>0-2 yr] --> M[Mid 2-4 yr]
-  M --> S[Senior 4-7 yr]
-  S --> SP{Choose Track}
-  SP --> SL[Staff/Lead<br/>Tech Track]
-  SP --> EM[Engineering Manager<br/>People Track]
-  SP --> SP1[Specialist<br/>e.g. ML Researcher]
-  SL --> P[Principal Engineer]
-  EM --> D[Director]
+  J["Junior AI Engineer<br/>0-2 yr"] --> M["Mid 2-4 yr"]
+  M --> S["Senior 4-7 yr"]
+  S --> SP{"Choose Track"}
+  SP --> SL["Staff or Lead<br/>Tech Track"]
+  SP --> EM["Engineering Manager<br/>People Track"]
+  SP --> SP1["Specialist<br/>e.g. ML Researcher"]
+  SL --> P["Principal Engineer"]
+  EM --> D["Director"]
   SP1 --> P
-  P --> CTO[CTO / VP Eng]
+  P --> CTO["CTO or VP Eng"]
   D --> CTO
 
-  J -.- JS["Skills:<br/>Python, RAG, API"]
-  M -.- MS["+Debug, Eval, Deploy"]
-  S -.- SS["+System Design,<br/>Spec, Mentoring"]
-  SL -.- LS["+Multi-team,<br/>Strategy"]
-  P -.- PS["+Org-wide impact,<br/>Business acumen"]
+  J -.- JS["Skills<br/>Python, RAG, API"]
+  M -.- MS["plus Debug, Eval, Deploy"]
+  S -.- SS["plus System Design,<br/>Spec, Mentoring"]
+  SL -.- LS["plus Multi-team,<br/>Strategy"]
+  P -.- PS["plus Org-wide impact,<br/>Business acumen"]
 
   style J fill:#4f9eff,color:#fff
   style S fill:#a78bfa,color:#fff
@@ -3349,16 +3349,16 @@ flowchart TD
   <div class="diagram-wrap" style="margin-bottom:20px;">
 <div class="mermaid">
 flowchart LR
-  BU[1. Business<br/>Understanding] --> DA[2. Data<br/>Audit]
-  DA --> PF[3. Problem<br/>Framing]
-  PF --> AD[4. Architecture<br/>Design]
-  AD --> TS[5. Tool<br/>Selection]
-  TS --> IM[6. Implementation]
-  IM --> EV[7. Evaluation]
-  EV --> DP[8. Deployment]
-  DP --> MN[9. Monitoring]
-  MN --> IT[10. Iteration]
-  IT -.feedback.-> AD
+  BU["1 Business<br/>Understanding"] --> DA["2 Data<br/>Audit"]
+  DA --> PF["3 Problem<br/>Framing"]
+  PF --> AD["4 Architecture<br/>Design"]
+  AD --> TS["5 Tool<br/>Selection"]
+  TS --> IM["6 Implementation"]
+  IM --> EV["7 Evaluation"]
+  EV --> DP["8 Deployment"]
+  DP --> MN["9 Monitoring"]
+  MN --> IT["10 Iteration"]
+  IT -.->|feedback| AD
   style BU fill:#4f9eff,color:#fff
   style IM fill:#a78bfa,color:#fff
   style DP fill:#3ecf8e,color:#fff
@@ -3478,9 +3478,10 @@ flowchart LR
 </div>
 
 <script>
-// ============ Mermaid Init ============
+// ============ Mermaid Init (NO auto start) ============
 mermaid.initialize({
-  startOnLoad: true,
+  startOnLoad: false,
+  securityLevel: 'loose',
   theme: 'dark',
   themeVariables: {
     background: '#0a0e1a',
@@ -3491,8 +3492,54 @@ mermaid.initialize({
     secondaryColor: '#232b42',
     tertiaryColor: '#131826',
   },
-  flowchart: { curve: 'basis', padding: 12 }
+  flowchart: { curve: 'basis', padding: 12, htmlLabels: true, useMaxWidth: true }
 });
+
+// ============ Mermaid Lazy Rendering ============
+// Save original source code on each .mermaid block BEFORE we render anything.
+// Use innerHTML (not textContent) so <br/> tags are preserved as line-break syntax.
+function decodeHTMLEntities(str) {
+  const ta = document.createElement('textarea');
+  ta.innerHTML = str;
+  return ta.value;
+}
+
+document.querySelectorAll('.mermaid').forEach(el => {
+  if (!el.dataset.source) {
+    // innerHTML keeps <br>; decode entities like &lt; → < (Mermaid expects literal chars in quoted labels)
+    let src = el.innerHTML;
+    src = decodeHTMLEntities(src);
+    el.dataset.source = src.trim();
+    // Clear raw graph code from view; show a small placeholder
+    el.innerHTML = '<div style="color:#6b7689; padding:24px; font-size:13px; text-align:center;">⏳ Loading diagram...</div>';
+  }
+});
+
+let mermaidSeq = 0;
+async function renderMermaidIn(container) {
+  if (!container) return;
+  const blocks = container.querySelectorAll('.mermaid');
+  for (const block of blocks) {
+    if (block.dataset.rendered === '1') continue;
+    const code = block.dataset.source;
+    if (!code) continue;
+    try {
+      const id = 'mmd-' + (++mermaidSeq);
+      const { svg, bindFunctions } = await mermaid.render(id, code);
+      block.innerHTML = svg;
+      if (bindFunctions) bindFunctions(block);
+      block.dataset.rendered = '1';
+    } catch (e) {
+      console.error('Mermaid error in block:', e, code);
+      block.innerHTML = `<div style="color:#f87171; padding:16px; font-size:13px; border:1px solid #f87171; border-radius:8px;">
+        <strong>Diagram render error:</strong> ${(e && e.message) || e}<br/>
+        <details style="margin-top:8px;"><summary style="cursor:pointer;">Show source</summary>
+        <pre style="margin-top:8px; white-space:pre-wrap; font-size:11px;">${(code || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')}</pre>
+        </details>
+      </div>`;
+    }
+  }
+}
 
 // ============ State (localStorage) ============
 const STATE_KEY = 'ai_mastery_dashboard_v1';
@@ -3513,6 +3560,13 @@ function showModule(mod) {
   state.current = mod;
   saveState(state);
   window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Render any mermaid in the now-visible module + the always-visible PdM section
+  const activeCard = document.querySelector(`.module-card[data-module="${mod}"]`);
+  if (activeCard) {
+    // Find which tab content is active inside; render only that one
+    const activeTab = activeCard.querySelector('.tab-content.active');
+    if (activeTab) renderMermaidIn(activeTab);
+  }
 }
 
 tabs.forEach(t => {
@@ -3546,6 +3600,9 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     const tabId = btn.dataset.tab;
     card.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b === btn));
     card.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === tabId));
+    // Render any unrendered mermaid in the now-visible tab
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) renderMermaidIn(activeTab);
   });
 });
 
@@ -3591,6 +3648,10 @@ function updateProgress() {
 // ============ Init ============
 showModule(state.current ?? 0);
 updateProgress();
+
+// Render the always-visible PdM Process section (not inside a tab)
+const pdmProcess = document.querySelector('.pdm-process');
+if (pdmProcess) renderMermaidIn(pdmProcess);
 </script>
 </body>
 </html>
